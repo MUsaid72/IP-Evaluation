@@ -1,0 +1,22 @@
+﻿@page "{id:guid}"
+@model TodoRazor.Pages.Todos.DeleteModel
+@{
+    ViewData["Title"] = "Delete Task";
+}
+
+<h2>Delete Task</h2>
+
+@if (Model.Item == null)
+{
+    <p>Task not found.</p>
+}
+else
+{
+    <p>Delete the task:</p>
+    <div><strong>@Model.Item.Title</strong><br /><em>@Model.Item.Notes</em></div>
+
+    <form method="post">
+        <button type="submit">Delete</button>
+        <a asp-page="/Index">Cancel</a>
+    </form>
+}

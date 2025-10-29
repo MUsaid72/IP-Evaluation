@@ -1,0 +1,31 @@
+﻿@page
+@model TodoRazor.Pages.Todos.CreateModel
+@{
+    ViewData["Title"] = "Add Task";
+}
+
+<h2>Add Task</h2>
+
+<form method="post">
+    <div>
+        <label>Title</label><br />
+        <input asp-for="Item.Title" />
+        <span asp-validation-for="Item.Title" style="color:red"></span>
+    </div>
+    <div>
+        <label>Notes</label><br />
+        <textarea asp-for="Item.Notes"></textarea>
+    </div>
+    <div>
+        <label>Due Date</label><br />
+        <input asp-for="Item.DueDate" type="date" />
+    </div>
+    <div style="margin-top:8px;">
+        <button type="submit">Add</button>
+        <a asp-page="/Index">Cancel</a>
+    </div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

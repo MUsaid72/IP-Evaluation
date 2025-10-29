@@ -1,0 +1,36 @@
+﻿@page "{id:guid}"
+@model TodoRazor.Pages.Todos.EditModel
+@{
+    ViewData["Title"] = "Edit Task";
+}
+
+<h2>Edit Task</h2>
+
+<form method="post">
+    <input type="hidden" asp-for="Item.Id" />
+    <div>
+        <label>Title</label><br />
+        <input asp-for="Item.Title" />
+        <span asp-validation-for="Item.Title" style="color:red"></span>
+    </div>
+    <div>
+        <label>Notes</label><br />
+        <textarea asp-for="Item.Notes"></textarea>
+    </div>
+    <div>
+        <label>Due Date</label><br />
+        <input asp-for="Item.DueDate" type="date" />
+    </div>
+    <div>
+        <label>Done</label>
+        <input asp-for="Item.IsDone" type="checkbox" />
+    </div>
+    <div style="margin-top:8px;">
+        <button type="submit">Save</button>
+        <a asp-page="/Index">Cancel</a>
+    </div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

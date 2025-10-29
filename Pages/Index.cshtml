@@ -1,0 +1,61 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "To-Do List";
+}
+
+<h2>To-Do List</h2>
+
+<p>
+    <a asp-page="Todos/Create">+ Add Task</a>
+</p>
+
+@if (TempData["Message"] != null)
+{
+    <div style="color:green">@TempData["Message"]</div>
+}
+
+@if (Model.Items == null || Model.Items.Count == 0)
+{
+    <p><em>No tasks found.</em></p>
+}
+else
+{
+    <table border="1" cellpadding="6" style="margin-top:10px;">
+        <thead>
+            <tr>
+                <th>Done</th>
+                <th>Title</th>
+                <th>Due</th>
+                <th>Added</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var it in Model.Items)
+            {
+                <tr>
+                    <td style="text-align:center;">
+                        <form method="post" asp-page-handler="Toggle" asp-route-id="@it.Id">
+                            @Html.AntiForgeryToken()
+                            <input type="checkbox" onchange="this.form.submit()" @(it.IsDone ? "checked" : "") />
+                        </form>
+                    </td>
+                    <td>
+                        @it.Title
+                        @if (!string.IsNullOrWhiteSpace(it.Notes))
+                        {
+                            <div style="font-size:small;color:gray">@it.Notes</div>
+                        }
+                    </td>
+                    <td>@(it.DueDate.HasValue? it.DueDate.Value.ToString("yyyy-MM-dd") : "-")</td>
+                    <td>@it.AddedOn.ToString("yyyy-MM-dd")</td>
+                    <td>
+                        <a asp-page="Todos/Edit" asp-route-id="@it.Id">Edit</a> |
+                        <a asp-page="Todos/Delete" asp-route-id="@it.Id">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
